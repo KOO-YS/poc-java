@@ -1,0 +1,13 @@
+server:
+  port: 8084
+
+spring:
+  docker:
+    compose:
+      lifecycle-management: none
+
+aws:
+  s3:
+    access-key: access
+    secret-key: secret
+    region: region

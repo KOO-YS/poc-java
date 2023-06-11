@@ -1,1 +1,10 @@
+version: '3'
 services:
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: s3-tag
+    ports:
+      - "5432:5432"
