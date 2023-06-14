@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface StorageUtil {
 
-    void createBucket();
+    void createBucket(String bucketName);
 
     List<Bucket> listBuckets();
 
