@@ -18,4 +18,8 @@ public class StorageUtilTest {
         storageUtil.createBucket("hello");
     }
 
+    @Test
+    void upload() {
+        storageUtil.uploadObject("yaans-bucket");
+    }
 }

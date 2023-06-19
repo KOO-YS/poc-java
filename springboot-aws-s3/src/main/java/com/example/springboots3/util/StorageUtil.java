@@ -15,7 +15,7 @@ public interface StorageUtil {
 
     List<Bucket> listBuckets();
 
-    void uploadObject();
+    void uploadObject(String bucketName);
 
     void uploadMultiObject();
 
