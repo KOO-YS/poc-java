@@ -16,6 +16,7 @@ public class OpenApiConfig {
             .title("API Document")
             .description("Sample Document with Open API");
 
+        // TODO : header에 jwt 토큰 포함할 것 -> ref : https://tg360.tistory.com/entry/Springdoc-openapi%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Spring-Boot-%EA%B8%B0%EB%B0%98-API%EC%9D%98-%EB%AC%B8%EC%84%9C-%EC%9E%90%EB%8F%99%ED%99%94
         return new OpenAPI()
             .info(info);
     }
