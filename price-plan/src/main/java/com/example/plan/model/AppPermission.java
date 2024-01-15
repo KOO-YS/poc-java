@@ -11,10 +11,10 @@ public class AppPermission {
 
     @Id
     @Column(name = "per_id")
-    private long id;
+    private Long id;
 
     @Column(name = "app_id")
-    private int appId;
+    private Integer appId;
 
     @Column(name = "plan_type")
     private PricingPlanType planType;

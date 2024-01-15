@@ -11,14 +11,15 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "/api/v1/customer")
+@RequestMapping(path = "/api/v1/customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("/name")
-    public ResponseEntity<Boolean> validateCustomerName(@RequestParam String firstName, String lastName) {
+    @GetMapping("/name")
+    public ResponseEntity<Boolean> validateCustomerName(@RequestParam String firstName,
+                                                        @RequestParam String lastName) {
         boolean validName = customerService.validateName(firstName, lastName);
         return ResponseEntity.ok(validName);
     }

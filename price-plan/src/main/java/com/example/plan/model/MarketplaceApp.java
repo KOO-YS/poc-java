@@ -14,7 +14,7 @@ public class MarketplaceApp {
 
     @Id
     @Column(name = "app_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "app_name", nullable = false)
     private String name;
