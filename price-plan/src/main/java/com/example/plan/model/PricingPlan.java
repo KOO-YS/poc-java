@@ -18,7 +18,8 @@ public class PricingPlan {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "plan_type", nullable = false)
-    private PricingPlanType planType;
+    @Builder.Default
+    private PricingPlanType planType = PricingPlanType.FREE;
 
     @Column(name = "plan_price", nullable = false)
     @Builder.Default

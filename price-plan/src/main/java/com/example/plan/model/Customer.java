@@ -2,6 +2,7 @@ package com.example.plan.model;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,11 +11,20 @@ import java.util.List;
 
 @Table(name = "customers")
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class Customer {
 
     @Id
-    @Column(name = "ct_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ct_idx")
+    private Long idx;
+
+    @Column(name = "ct_account", nullable = false, unique = true)
+    private String account;
 
     @Column(name = "ct_first_name", nullable = false)
     private String firstName;
@@ -22,7 +32,7 @@ public class Customer {
     @Column(name = "ct_last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "ct_vaild_code", nullable = false)
+    @Column(name = "ct_vaild_code", nullable = false, unique = true)
     private String validCode;
 
     @OneToMany(mappedBy = "customer")

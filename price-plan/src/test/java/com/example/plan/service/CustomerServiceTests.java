@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CustomerServiceTests {
 
     @Autowired
-    CustomerService customerService = new CustomerService();
+    CustomerService customerService;
 
     @Test
     void validateName() {
