@@ -2,21 +2,23 @@ package com.example.plan.service;
 
 
 import com.example.plan.dto.CustomerDto;
+import com.example.plan.exception.CustomerAlreadyExistException;
 import com.example.plan.model.Customer;
 import com.example.plan.repository.CustomerRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
-public class CustomerServiceTests {
+class CustomerServiceTests {
 
     @Mock
     private CustomerRepository customerRepository;
@@ -25,6 +27,7 @@ public class CustomerServiceTests {
     private
     CustomerService customerService;
 
+    @Order(1)
     @Test
     void validateName() {
 
@@ -36,8 +39,9 @@ public class CustomerServiceTests {
         Assertions.assertFalse(customerService.validateName("", "Hello"));
     }
 
+    @Order(2)
     @Test
-    public void signUp() {
+    void signUp() {
         // given
         CustomerDto dto = CustomerDto.builder()
             .account("testId02")
@@ -45,20 +49,26 @@ public class CustomerServiceTests {
             .lastName("lee")
             .build();
 
-        Customer result = Customer.builder()
+        Customer expected = Customer.builder()
+                .idx(1L)
                 .account(dto.getAccount())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
             .validCode("xxxxxx")
             .build();
 
-        doReturn(result)
-            .when(customerRepository.save(result));
+        when(customerRepository.save(any(Customer.class)))
+                .thenReturn(expected);
 
         // when
-        Customer customer = customerService.signUp(dto);
+        Customer actual = customerService.signUp(dto);
 
         // then
-        System.out.println(customer.getIdx()+ customer.getFirstName());
+        verify(customerRepository, times(1)).save(any(Customer.class));
+
+        assertThat(expected.getAccount().equals(actual.getAccount()));
+        assertThat(expected.getFirstName().equals(actual.getFirstName()));
+        assertThat(expected.getValidCode().equals(actual.getValidCode()));
+
     }
 }
