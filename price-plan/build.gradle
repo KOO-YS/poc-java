@@ -24,13 +24,22 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.2.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
+	// embedded keycloak configuration
+	implementation group: 'org.jboss.resteasy', name: 'resteasy-jackson2-provider'
+	implementation group: 'org.keycloak', name: 'keycloak-dependencies-server-all', ext: 'pom'
+	implementation group: 'org.keycloak', name: 'keycloak-crypto-default'
+	implementation group: 'org.keycloak', name: 'keycloak-admin-ui'
+	implementation group: 'org.keycloak', name: 'keycloak-services'
+	implementation group: 'org.keycloak', name: 'keycloak-rest-admin-ui-ext'
+
 }
 
 tasks.named('test') {

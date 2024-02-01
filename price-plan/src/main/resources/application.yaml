@@ -33,3 +33,11 @@ logging:
           jdbc:
             bind: trace         # parameter 바인딩
             # updated contents : https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#best-practices-logging
+
+keycloak:
+  server:
+    contextPath: /auth
+    adminUser:
+      username: admin
+      password: 1234
+    realmImportFile: baeldung-realm.json
