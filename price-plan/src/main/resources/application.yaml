@@ -40,4 +40,4 @@ keycloak:
     adminUser:
       username: admin
       password: 1234
-    realmImportFile: baeldung-realm.json
+    realmImportFile: price-plan-realm.json

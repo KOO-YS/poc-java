@@ -1,29 +1,36 @@
 package com.example.plan.config;
 
-import com.example.plan.PricePlanApplication;
+import org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher;
+import org.jboss.resteasy.plugins.server.servlet.ResteasyContextParameters;
+import org.keycloak.platform.Platform;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.naming.CompositeName;
+import javax.naming.InitialContext;
+import javax.naming.Name;
+import javax.naming.NameParser;
+import javax.naming.NamingException;
+import javax.naming.spi.NamingManager;
 import javax.sql.DataSource;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Configuration
 public class EmbeddedKeycloakConfig {
 
     @Bean
-    ServletRegistrationBean keycloakJaxRsApplication(KeycloakServerProperties keycloakServerProperties,
-                                                     DataSource dataSource) throws Exception {
+    ServletRegistrationBean keycloakJaxRsApplication(KeycloakServerProperties keycloakServerProperties,DataSource dataSource) throws Exception {
 
         mockJndiEnvironment(dataSource);
-        PricePlanApplication.keycloakServerProperties = keycloakServerProperties;
-        ServletRegistrationBean servlet = new ServletRegistrationBean<>(
-            new HttpServlet30Dispatcher());
-        servlet.addInitParameter("jakarta.ws.rs.Application",
-            PricePlanApplication.class.getName());
-        servlet.addInitParameter(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX,
-            keycloakServerProperties.getContextPath());
-        servlet.addInitParameter(ResteasyContextParameters.RESTEASY_USE_CONTAINER_FORM_PARAMS,
-            "true");
+        EmbeddedKeycloakApplication.keycloakServerProperties = keycloakServerProperties;
+        ServletRegistrationBean servlet = new ServletRegistrationBean<>(new HttpServlet30Dispatcher());
+        servlet.addInitParameter("jakarta.ws.rs.Application", EmbeddedKeycloakApplication.class.getName());
+        servlet.addInitParameter(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX, keycloakServerProperties.getContextPath());
+        servlet.addInitParameter(ResteasyContextParameters.RESTEASY_USE_CONTAINER_FORM_PARAMS, "true");
         servlet.addUrlMappings(keycloakServerProperties.getContextPath() + "/*");
         servlet.setLoadOnStartup(1);
         servlet.setAsyncSupported(true);
@@ -31,8 +38,7 @@ public class EmbeddedKeycloakConfig {
     }
 
     @Bean
-    FilterRegistrationBean keycloakSessionManagement(
-        KeycloakServerProperties keycloakServerProperties) {
+    FilterRegistrationBean<EmbeddedKeycloakRequestFilter> keycloakSessionManagement(KeycloakServerProperties keycloakServerProperties) {
         FilterRegistrationBean filter = new FilterRegistrationBean<>();
         filter.setName("Keycloak Session Management");
         filter.setFilter(new EmbeddedKeycloakRequestFilter());

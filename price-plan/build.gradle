@@ -33,12 +33,12 @@ dependencies {
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// embedded keycloak configuration
-	implementation group: 'org.jboss.resteasy', name: 'resteasy-jackson2-provider'
-	implementation group: 'org.keycloak', name: 'keycloak-dependencies-server-all', ext: 'pom'
-	implementation group: 'org.keycloak', name: 'keycloak-crypto-default'
-	implementation group: 'org.keycloak', name: 'keycloak-admin-ui'
-	implementation group: 'org.keycloak', name: 'keycloak-services'
-	implementation group: 'org.keycloak', name: 'keycloak-rest-admin-ui-ext'
+	implementation group: 'org.jboss.resteasy', name: 'resteasy-jackson2-provider', version: '23.0.7'
+	implementation group: 'org.keycloak', name: 'keycloak-dependencies-server-all', version: '23.0.7', ext: 'pom'
+	implementation group: 'org.keycloak', name: 'keycloak-crypto-default', version: '23.0.7'
+	implementation group: 'org.keycloak', name: 'keycloak-admin-ui', version: '23.0.7'
+	implementation group: 'org.keycloak', name: 'keycloak-services', version: '23.0.7'
+	implementation group: 'org.keycloak', name: 'keycloak-rest-admin-ui-ext', version: '23.0.7'
 
 }
 

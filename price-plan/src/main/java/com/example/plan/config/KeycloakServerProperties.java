@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+@Getter
 @ConfigurationProperties(prefix = "keycloak.server")
 public class KeycloakServerProperties {
 
@@ -11,24 +12,12 @@ public class KeycloakServerProperties {
     String realmImportFile = "price-plan-realm.json";
     AdminUser adminUser = new AdminUser();
 
-    public String getContextPath() {
-        return contextPath;
-    }
-
     public void setContextPath(String contextPath) {
         this.contextPath = contextPath;
     }
 
-    public String getRealmImportFile() {
-        return realmImportFile;
-    }
-
     public void setRealmImportFile(String realmImportFile) {
         this.realmImportFile = realmImportFile;
-    }
-
-    public AdminUser getAdminUser() {
-        return adminUser;
     }
 
     public void setAdminUser(AdminUser adminUser) {
@@ -37,7 +26,7 @@ public class KeycloakServerProperties {
 
     public static class AdminUser {
         String username = "admin";
-        String password = "admin";
+        String password = "1234";
 
         public String getUsername() {
             return username;
