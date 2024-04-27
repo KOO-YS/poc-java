@@ -1,16 +1,18 @@
 package com.example.plan;
 
-import com.example.plan.config.KeycloakServerProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties({KeycloakServerProperties.class})
 public class PricePlanApplication {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PricePlanApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(PricePlanApplication.class, args);
     }
+
 
 }
