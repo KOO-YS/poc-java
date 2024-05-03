@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -54,7 +53,6 @@ class CustomerServiceTests {
                 .account(dto.getAccount())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
-            .validCode("xxxxxx")
             .build();
 
         when(customerRepository.save(any(Customer.class)))
@@ -68,7 +66,6 @@ class CustomerServiceTests {
 
         assertThat(expected.getAccount().equals(actual.getAccount()));
         assertThat(expected.getFirstName().equals(actual.getFirstName()));
-        assertThat(expected.getValidCode().equals(actual.getValidCode()));
 
     }
 }

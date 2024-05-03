@@ -3,12 +3,13 @@ package com.example.plan.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 마켓플레이스 기본 회원정보
+ *
+ */
 @Table(name = "customers")
 @Entity
 @Getter
@@ -16,35 +17,24 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Customer {
+public class Customer extends AuditEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ct_idx")
+    @Column(name = "CUSTOMER_ID")
     private Long idx;
 
-    @Column(name = "ct_account", nullable = false, unique = true)
+    @Column(name = "CUSTOMER_ACCOUNT", nullable = false, unique = true)
     private String account;
 
-    @Column(name = "ct_first_name", nullable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Column(name = "ct_last_name", nullable = false)
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "ct_vaild_code", nullable = false, unique = true)
-    private String validCode;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Subscription> subscriptions;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Payment> payments;
-
-    @CreationTimestamp
-    @Column(name = "ct_created_at")
-    private LocalDateTime create_at;
-
-    @UpdateTimestamp
-    @Column(name = "ct_updated_at")
-    private LocalDateTime updated_at;
-
-
+    // SKIP : Authorizations
 }

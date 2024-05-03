@@ -28,12 +28,13 @@ public class CustomerService {
         if (existAccount(customerDto.getAccount()))
             throw new CustomerAlreadyExistException("이미 존재하는 계정입니다 : "+customerDto.getAccount());
 
+        // TODO : 인증체계
+
         Customer customer = Customer.builder()
                 .account(customerDto.getAccount())
                 .firstName(customerDto.getFirstName())
                 .lastName(customerDto.getLastName())
-                .validCode("xxxxxx")    // TODO : 사용자 고유 인증번호
-                .build();
+            .build();
 
         return customerRepository.save(customer);
     }

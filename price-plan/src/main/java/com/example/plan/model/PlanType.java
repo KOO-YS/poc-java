@@ -1,5 +1,5 @@
 package com.example.plan.model;
 
-public enum PricingPlanType {
+public enum PlanType {
     FREE, PLUS, BUSINESS, ENTERPRICE
 }

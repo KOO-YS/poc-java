@@ -1,38 +1,31 @@
 package com.example.plan.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 마켓플레이스에 제공되어 있는 애플리케이션 정보
+ * 회원이 구독할 대상
+ */
 @Table(name = "marketplace_apps")
 @Entity
-public class MarketplaceApp {
+public class MarketplaceApp extends AuditEntity{
 
     @Id
-    @Column(name = "app_id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "APP_ID")
+    private Long idx;
 
-    @Column(name = "app_name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "app_content", nullable = false)
-    private String content;
-
-    @CreationTimestamp
-    @Column(name = "app_created_at")
-    private LocalDateTime create_at;
-
-    @UpdateTimestamp
-    @Column(name = "app_updated_at")
-    private LocalDateTime updated_at;
+    @Column(name = "DESC", nullable = false)
+    private String desc;
 
     @OneToMany
     @JoinColumn(name = "plan_id")
-    private List<PricingPlan> pricingPlans;
+    private List<Subscription> subscriptions;
 
     @OneToMany
     @JoinColumn(name = "per_id")
