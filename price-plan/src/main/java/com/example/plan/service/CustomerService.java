@@ -2,10 +2,9 @@ package com.example.plan.service;
 
 import com.example.plan.dto.CustomerDto;
 import com.example.plan.exception.CustomerAlreadyExistException;
-import com.example.plan.model.Customer;
+import com.example.plan.model.AppUser;
 import com.example.plan.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.file.Matcher;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
@@ -24,19 +23,19 @@ public class CustomerService {
             || (VALID_ENG.matcher(firstName).matches() && VALID_ENG.matcher(lastName).matches()));
     }
 
-    public Customer signUp(CustomerDto customerDto) {
+    public AppUser signUp(CustomerDto customerDto) {
         if (existAccount(customerDto.getAccount()))
             throw new CustomerAlreadyExistException("이미 존재하는 계정입니다 : "+customerDto.getAccount());
 
         // TODO : 인증체계
 
-        Customer customer = Customer.builder()
+        AppUser appUser = AppUser.builder()
                 .account(customerDto.getAccount())
                 .firstName(customerDto.getFirstName())
                 .lastName(customerDto.getLastName())
             .build();
 
-        return customerRepository.save(customer);
+        return customerRepository.save(appUser);
     }
 
     private boolean existAccount(String account) {

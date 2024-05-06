@@ -1,6 +1,7 @@
 package com.example.plan.model;
 
 
+import com.example.plan.model.key.PlanId;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,21 +14,13 @@ import java.time.LocalDateTime;
  */
 @Table(name = "plans")
 @Entity
-public class Plan {
+public class Plan extends AuditEntity{
 
-    @Id
-    @Column(name = "PLAN_ID")
-    private Long id;
+    @EmbeddedId
+    private PlanId planId;
 
-
-
-    @CreationTimestamp
-    @Column(name = "pm_created_at")
-    private LocalDateTime create_at;
-
-    @UpdateTimestamp
-    @Column(name = "pm_updated_at")
-    private LocalDateTime updated_at;
+    @Column(name = "PLAN_PRICE")
+    private Long price;
 
 
 }

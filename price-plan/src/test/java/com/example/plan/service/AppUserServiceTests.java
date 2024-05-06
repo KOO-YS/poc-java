@@ -2,8 +2,7 @@ package com.example.plan.service;
 
 
 import com.example.plan.dto.CustomerDto;
-import com.example.plan.exception.CustomerAlreadyExistException;
-import com.example.plan.model.Customer;
+import com.example.plan.model.AppUser;
 import com.example.plan.repository.CustomerRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +16,7 @@ import static org.mockito.BDDMockito.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
-class CustomerServiceTests {
+class AppUserServiceTests {
 
     @Mock
     private CustomerRepository customerRepository;
@@ -48,21 +47,21 @@ class CustomerServiceTests {
             .lastName("lee")
             .build();
 
-        Customer expected = Customer.builder()
-                .idx(1L)
+        AppUser expected = AppUser.builder()
+                .id(1L)
                 .account(dto.getAccount())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
             .build();
 
-        when(customerRepository.save(any(Customer.class)))
+        when(customerRepository.save(any(AppUser.class)))
                 .thenReturn(expected);
 
         // when
-        Customer actual = customerService.signUp(dto);
+        AppUser actual = customerService.signUp(dto);
 
         // then
-        verify(customerRepository, times(1)).save(any(Customer.class));
+        verify(customerRepository, times(1)).save(any(AppUser.class));
 
         assertThat(expected.getAccount().equals(actual.getAccount()));
         assertThat(expected.getFirstName().equals(actual.getFirstName()));

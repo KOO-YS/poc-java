@@ -1,5 +1,8 @@
 package com.example.plan.model;
 
-public enum PlanType {
+/**
+ * 구독 범위 분류
+ */
+public enum PlanTier {
     FREE, PLUS, BUSINESS, ENTERPRICE
 }

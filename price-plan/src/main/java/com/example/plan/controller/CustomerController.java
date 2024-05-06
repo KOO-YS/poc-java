@@ -3,7 +3,7 @@ package com.example.plan.controller;
 
 import com.example.plan.dto.CustomerDto;
 import com.example.plan.exception.CustomerAlreadyExistException;
-import com.example.plan.model.Customer;
+import com.example.plan.model.AppUser;
 import com.example.plan.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +35,8 @@ public class CustomerController {
     @PostMapping("/signup")
     public ResponseEntity signUp(@RequestBody @Valid CustomerDto customerDto) {
         try {
-            Customer newCustomer = customerService.signUp(customerDto);
-            return ResponseEntity.ok(newCustomer);
+            AppUser newAppUser = customerService.signUp(customerDto);
+            return ResponseEntity.ok(newAppUser);
 
         } catch (CustomerAlreadyExistException e) {
             return ResponseEntity.internalServerError().build();

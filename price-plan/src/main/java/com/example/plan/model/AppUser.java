@@ -4,27 +4,28 @@ package com.example.plan.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 마켓플레이스 기본 회원정보
+ * 마켓플레이스 기본 회원 정보
  *
  */
-@Table(name = "customers")
+@Table(name = "app_users")
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class Customer extends AuditEntity{
+public class AppUser extends AuditEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CUSTOMER_ID")
-    private Long idx;
+    @Column(name = "USER_ID")
+    private Long id;
 
-    @Column(name = "CUSTOMER_ACCOUNT", nullable = false, unique = true)
+    @Column(name = "USER_ACCOUNT", nullable = false, unique = true)
     private String account;
 
     @Column(name = "FIRST_NAME", nullable = false)
@@ -33,8 +34,8 @@ public class Customer extends AuditEntity{
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Subscription> subscriptions;
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
+    private List<Subscription> subscriptions = new ArrayList<>();
 
     // SKIP : Authorizations
 }

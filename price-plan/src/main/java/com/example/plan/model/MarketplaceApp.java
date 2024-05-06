@@ -2,6 +2,7 @@ package com.example.plan.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class MarketplaceApp extends AuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "APP_ID")
-    private Long idx;
+    private Long id;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -23,11 +24,7 @@ public class MarketplaceApp extends AuditEntity{
     @Column(name = "DESC", nullable = false)
     private String desc;
 
-    @OneToMany
-    @JoinColumn(name = "plan_id")
-    private List<Subscription> subscriptions;
+    @OneToMany(mappedBy = "app", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AppFunction> functions = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "per_id")
-    private List<AppPermission> permissions;
 }
