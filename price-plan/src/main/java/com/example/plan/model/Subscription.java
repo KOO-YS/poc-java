@@ -31,6 +31,10 @@ public class Subscription extends AuditEntity{
     @Column(name = "plan_tier", nullable = false)
     private PlanTier planTier = PlanTier.FREE;
 
+    @OneToMany(mappedBy = "subscription", fetch = FetchType.LAZY)
+    @OrderBy("startDate")
+    private List<SubscriptionPeriod> periods = new ArrayList<>();
+
 
 
 }
