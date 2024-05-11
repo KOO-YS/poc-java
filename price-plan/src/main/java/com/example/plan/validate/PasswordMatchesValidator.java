@@ -1,20 +1,18 @@
 package com.example.plan.validate;
 
-import com.example.plan.dto.CustomerDto;
+import com.example.plan.dto.AppUserDto;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.lang.annotation.Annotation;
 
-
-public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, CustomerDto> {
+public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, AppUserDto> {
 
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(CustomerDto value, ConstraintValidatorContext context) {
+    public boolean isValid(AppUserDto value, ConstraintValidatorContext context) {
         return value.getPassword().equals(value.getMatchingPassword());
     }
 }

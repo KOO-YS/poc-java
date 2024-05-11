@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 @ToString
@@ -14,7 +13,7 @@ import lombok.ToString;
 @Builder
 @JsonNaming(value =  PropertyNamingStrategies.SnakeCaseStrategy.class)
 @PasswordMatches
-public class CustomerDto {
+public class AppUserDto {
 
     @NotNull
     @NotEmpty

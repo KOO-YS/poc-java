@@ -1,10 +1,10 @@
 package com.example.plan.controller;
 
 
-import com.example.plan.dto.CustomerDto;
+import com.example.plan.dto.AppUserDto;
 import com.example.plan.exception.CustomerAlreadyExistException;
 import com.example.plan.model.AppUser;
-import com.example.plan.service.CustomerService;
+import com.example.plan.service.AppUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "/api/v1/customers")
+@RequestMapping(path = "/api/v1/users")
 @RequiredArgsConstructor
-public class CustomerController {
+public class AppUserController {
 
-    private final CustomerService customerService;
+    private final AppUserService appUserService;
 
     @GetMapping("/name")
     public ResponseEntity<String> validateCustomerName(@RequestParam String firstName,
                                                         @RequestParam String lastName) {
         // FIXME : try with custom validation
         // ref : https://stackoverflow.com/questions/2781771/how-can-i-validate-two-or-more-fields-in-combination
-        boolean validName = customerService.validateName(firstName, lastName);
+        boolean validName = appUserService.validateName(firstName, lastName);
         if (validName)
             return ResponseEntity.ok("사용 가능한 이름입니다.");
         else
@@ -33,9 +33,9 @@ public class CustomerController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity signUp(@RequestBody @Valid CustomerDto customerDto) {
+    public ResponseEntity signUp(@RequestBody @Valid AppUserDto appUserDto) {
         try {
-            AppUser newAppUser = customerService.signUp(customerDto);
+            AppUser newAppUser = appUserService.signUp(appUserDto);
             return ResponseEntity.ok(newAppUser);
 
         } catch (CustomerAlreadyExistException e) {

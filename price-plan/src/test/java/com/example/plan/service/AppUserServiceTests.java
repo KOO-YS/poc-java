@@ -1,9 +1,9 @@
 package com.example.plan.service;
 
 
-import com.example.plan.dto.CustomerDto;
+import com.example.plan.dto.AppUserDto;
 import com.example.plan.model.AppUser;
-import com.example.plan.repository.CustomerRepository;
+import com.example.plan.repository.AppUserRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,29 +19,29 @@ import static org.mockito.BDDMockito.*;
 class AppUserServiceTests {
 
     @Mock
-    private CustomerRepository customerRepository;
+    private AppUserRepository appUserRepository;
 
     @InjectMocks
     private
-    CustomerService customerService;
+    AppUserService appUserService;
 
     @Order(1)
     @Test
     void validateName() {
 
-        Assertions.assertTrue(customerService.validateName("길동", "홍"));
-        Assertions.assertTrue(customerService.validateName("John", "Park"));
+        Assertions.assertTrue(appUserService.validateName("길동", "홍"));
+        Assertions.assertTrue(appUserService.validateName("John", "Park"));
 
-        Assertions.assertFalse(customerService.validateName("안녕", "s"));
-        Assertions.assertFalse(customerService.validateName("안녕", ""));
-        Assertions.assertFalse(customerService.validateName("", "Hello"));
+        Assertions.assertFalse(appUserService.validateName("안녕", "s"));
+        Assertions.assertFalse(appUserService.validateName("안녕", ""));
+        Assertions.assertFalse(appUserService.validateName("", "Hello"));
     }
 
     @Order(2)
     @Test
     void signUp() {
         // given
-        CustomerDto dto = CustomerDto.builder()
+        AppUserDto dto = AppUserDto.builder()
             .account("testId02")
             .firstName("gildong")
             .lastName("lee")
@@ -54,14 +54,14 @@ class AppUserServiceTests {
                 .lastName(dto.getLastName())
             .build();
 
-        when(customerRepository.save(any(AppUser.class)))
+        when(appUserRepository.save(any(AppUser.class)))
                 .thenReturn(expected);
 
         // when
-        AppUser actual = customerService.signUp(dto);
+        AppUser actual = appUserService.signUp(dto);
 
         // then
-        verify(customerRepository, times(1)).save(any(AppUser.class));
+        verify(appUserRepository, times(1)).save(any(AppUser.class));
 
         assertThat(expected.getAccount().equals(actual.getAccount()));
         assertThat(expected.getFirstName().equals(actual.getFirstName()));
